@@ -21,3 +21,8 @@ svg.append("rect")
     .attr("class", "background")
     .attr("width", width)
     .attr("height", height);
+
+d3.json("data.json").then(function (data) {
+    let entities = data.entities
+    console.log(entities[0]);
+});
