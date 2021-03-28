@@ -1,0 +1,23 @@
+{
+  "name": "Information_visualisation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/robinspiltijns/Information_visualisation.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/robinspiltijns/Information_visualisation/issues"
+  },
+  "homepage": "https://github.com/robinspiltijns/Information_visualisation#readme",
+  "dependencies": {
+    "d3": "^6.6.1"
+  }
+}
