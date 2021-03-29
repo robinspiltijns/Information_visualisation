@@ -22,7 +22,13 @@ svg.append("rect")
     .attr("width", width)
     .attr("height", height);
 
-d3.json("data.json").then(function (data) {
-    let entities = data.entities
-    console.log(entities[0]);
+d3.json("data/data.json").then(function (data) {
+    let permissions = data.entities.filter((e) => e.type == "permission");
+    let nbPermissions = permissions.length
+    console.log(permissions[0])
+
+    permissions.forEach((p) => {
+        // counts the number of leaf nodes for which this node is an ancestor
+        p.count = 0;
+    })
 });
