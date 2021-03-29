@@ -1,0 +1,693 @@
+{
+  "attributeTypes": [
+    {
+      "category": "user",
+      "description": "The SAP ID of this user.",
+      "id": "sap_id",
+      "name": "SAP ID",
+      "type": "string"
+    },
+    {
+      "category": "user",
+      "description": "The date when this user entered service.",
+      "id": "in_service_date",
+      "name": "in service date",
+      "type": "dateTime"
+    },
+    {
+      "category": "user",
+      "description": "The billing post of this user.",
+      "id": "billing_post",
+      "name": "billing post",
+      "type": "string"
+    },
+    {
+      "category": "user",
+      "description": "The email address of this user.",
+      "id": "email",
+      "name": "email",
+      "type": "string"
+    },
+    {
+      "category": "user",
+      "description": "The internal user ID of this user.",
+      "id": "internal_user_id",
+      "name": "Internal user ID",
+      "type": "string"
+    },
+    {
+      "category": "user",
+      "description": "The manager of this user.",
+      "id": "manager",
+      "name": "manager",
+      "type": "string"
+    },
+    {
+      "category": "application",
+      "description": "SOX rating",
+      "id": "sox_rating",
+      "name": "SOX rating",
+      "type": "number"
+    },
+    {
+      "category": "user",
+      "description": "The department of this user.",
+      "id": "department",
+      "name": "department",
+      "type": "string"
+    },
+    {
+      "category": "user",
+      "description": "First name",
+      "id": "first_name",
+      "name": "first name",
+      "type": "string"
+    },
+    {
+      "category": "user",
+      "description": "Last name",
+      "id": "last_name",
+      "name": "last name",
+      "type": "string"
+    },
+    {
+      "category": "user",
+      "description": "External id",
+      "id": "external_id",
+      "name": "external id",
+      "type": "string"
+    },
+    {
+      "category": "role",
+      "description": "Description",
+      "id": "description",
+      "name": "description",
+      "type": "string"
+    },
+    {
+      "category": "role",
+      "description": "External id",
+      "id": "external_id",
+      "name": "external id",
+      "type": "string"
+    },
+    {
+      "category": "entitlement",
+      "description": "Description",
+      "id": "description",
+      "name": "description",
+      "type": "string"
+    },
+    {
+      "category": "entitlement",
+      "description": "External id",
+      "id": "external_id",
+      "name": "external id",
+      "type": "string"
+    },
+    {
+      "category": "permission",
+      "description": "Description",
+      "id": "description",
+      "name": "description",
+      "type": "string"
+    },
+    {
+      "category": "permission",
+      "description": "External id",
+      "id": "external_id",
+      "name": "external id",
+      "type": "string"
+    },
+    {
+      "category": "application",
+      "description": "Description",
+      "id": "description",
+      "name": "description",
+      "type": "string"
+    },
+    {
+      "category": "application",
+      "description": "Short name",
+      "id": "short_name",
+      "name": "short name",
+      "type": "string"
+    },
+    {
+      "category": "application",
+      "description": "Owner",
+      "id": "owner",
+      "name": "owner",
+      "type": "string"
+    },
+    {
+      "category": "application",
+      "description": "External id",
+      "id": "external_id",
+      "name": "external id",
+      "type": "string"
+    },
+    {
+      "category": "user",
+      "description": "not assigned",
+      "id": "profession",
+      "name": "Profession",
+      "type": "string"
+    }
+  ],
+  "dashboardCards": [
+    {
+      "groupByDefault": "billing_post",
+      "ownerEmail": "demo@elimity.com",
+      "type": "storedQueryGrouping",
+      "rows": 2,
+      "cols": 2
+    },
+    {
+      "ownerEmail": "demo@elimity.com",
+      "type": "storedQueryTimeSeries",
+      "rows": 2,
+      "cols": 2
+    },
+    {
+      "entityType": "user",
+      "ownerEmail": "demo@elimity.com",
+      "type": "summary"
+    },
+    {
+      "groupByDefault": "billing_post",
+      "ownerEmail": "admin@example.com",
+      "type": "storedQueryGrouping",
+      "rows": 2,
+      "cols": 2
+    },
+    {
+      "ownerEmail": "admin@example.com",
+      "type": "storedQueryTimeSeries",
+      "rows": 2,
+      "cols": 2
+    },
+    {
+      "entityType": "user",
+      "ownerEmail": "admin@example.com",
+      "type": "summary"
+    },
+    {
+      "groupByDefault": "billing_post",
+      "ownerEmail": "teamleader@example.com",
+      "type": "storedQueryGrouping",
+      "rows": 2,
+      "cols": 2
+    },
+    {
+      "ownerEmail": "teamleader@example.com",
+      "type": "storedQueryTimeSeries",
+      "rows": 2,
+      "cols": 2
+    },
+    {
+      "entityType": "user",
+      "ownerEmail": "teamleader@example.com",
+      "type": "summary"
+    }
+  ],
+  "defaultProfile": {
+    "permittedAttributes": null,
+    "permittedRelationshipAttributes": null
+  },
+  "entityTypes": [
+    {
+      "id": "user",
+      "singular": "user",
+      "plural": "users",
+      "icon": "group"
+    },
+    {
+      "id": "role",
+      "singular": "role",
+      "plural": "roles",
+      "icon": "assignment"
+    },
+    {
+      "id": "entitlement",
+      "singular": "entitlement",
+      "plural": "entitlements",
+      "icon": "class"
+    },
+    {
+      "id": "permission",
+      "singular": "permission",
+      "plural": "permissions",
+      "icon": "vpn_key"
+    },
+    {
+      "id": "application",
+      "singular": "application",
+      "plural": "applications",
+      "icon": "settings_applications"
+    }
+  ],
+  "profiles": null,
+  "relationshipAttributeTypes": [
+    {
+      "id": "creation_date",
+      "description": "The date this user-role assignment was created",
+      "fromCategory": "user",
+      "name": "Creation date",
+      "toCategory": "role",
+      "type": "dateTime"
+    },
+    {
+      "id": "creation_date",
+      "description": "The date this user-entitlement assignment was created",
+      "fromCategory": "user",
+      "name": "Creation date",
+      "toCategory": "entitlement",
+      "type": "dateTime"
+    },
+    {
+      "id": "creation_date",
+      "description": "The date this user-permission assignment was created",
+      "fromCategory": "user",
+      "name": "Creation date",
+      "toCategory": "permission",
+      "type": "dateTime"
+    },
+    {
+      "id": "creation_date",
+      "description": "The date this user-application assignment was created",
+      "fromCategory": "user",
+      "name": "Creation date",
+      "toCategory": "application",
+      "type": "dateTime"
+    },
+    {
+      "id": "creation_date",
+      "description": "The date this role-entitlement assignment was created",
+      "fromCategory": "role",
+      "name": "Creation date",
+      "toCategory": "entitlement",
+      "type": "dateTime"
+    },
+    {
+      "id": "creation_date",
+      "description": "The date this role-permission assignment was created",
+      "fromCategory": "role",
+      "name": "Creation date",
+      "toCategory": "permission",
+      "type": "dateTime"
+    },
+    {
+      "id": "creation_date",
+      "description": "The date this role-application assignment was created",
+      "fromCategory": "role",
+      "name": "Creation date",
+      "toCategory": "application",
+      "type": "dateTime"
+    },
+    {
+      "id": "creation_date",
+      "description": "The date this entitlement-permission assignment was created",
+      "fromCategory": "entitlement",
+      "name": "Creation date",
+      "toCategory": "permission",
+      "type": "dateTime"
+    },
+    {
+      "id": "creation_date",
+      "description": "The date this entitlement-application assignment was created",
+      "fromCategory": "entitlement",
+      "name": "Creation date",
+      "toCategory": "application",
+      "type": "dateTime"
+    },
+    {
+      "id": "creation_date",
+      "description": "The date this user-role assignment was created",
+      "fromCategory": "permission",
+      "name": "Creation date",
+      "toCategory": "application",
+      "type": "dateTime"
+    },
+    {
+      "id": "approved",
+      "description": "",
+      "fromCategory": "user",
+      "name": "approved",
+      "toCategory": "role",
+      "type": "boolean"
+    },
+    {
+      "id": "approval_date",
+      "description": "",
+      "fromCategory": "user",
+      "name": "approval date",
+      "toCategory": "role",
+      "type": "date"
+    },
+    {
+      "id": "approval_date",
+      "description": "",
+      "fromCategory": "user",
+      "name": "approval date",
+      "toCategory": "entitlement",
+      "type": "date"
+    }
+  ],
+  "scopes": [
+    {
+      "description": "This scope contains all my queries for monitoring the access to applications that I'm responsible for",
+      "name": "Application monitoring",
+      "ownerEmail": "demo@elimity.com",
+      "queries": [
+        {
+          "alias": "",
+          "condition": {
+            "alias": "",
+            "condition": {
+              "exprs": [
+                {
+                  "lhs": {
+                    "reference": "",
+                    "type": "name"
+                  },
+                  "mode": "caseInsensitive",
+                  "operator": "equals",
+                  "rhs": {
+                    "string": "Complaints",
+                    "type": "literal"
+                  },
+                  "type": "match"
+                }
+              ],
+              "type": "all"
+            },
+            "entityType": "application",
+            "type": "linkedTo"
+          },
+          "description": "This query tracks the users assigned to the Complaints application",
+          "entityType": "user",
+          "name": "Users of Complaints"
+        },
+        {
+          "alias": "",
+          "condition": {
+            "alias": "",
+            "condition": {
+              "exprs": [
+                {
+                  "lhs": {
+                    "reference": "",
+                    "type": "name"
+                  },
+                  "mode": "caseInsensitive",
+                  "operator": "equals",
+                  "rhs": {
+                    "string": "JustInf",
+                    "type": "literal"
+                  },
+                  "type": "match"
+                }
+              ],
+              "type": "all"
+            },
+            "entityType": "application",
+            "type": "linkedTo"
+          },
+          "description": "This query tracks users of the JustInf application",
+          "entityType": "user",
+          "name": "Users of JustInf"
+        }
+      ],
+      "shared": true
+    },
+    {
+      "description": "This scope contains all queries for monitoring the company-wide security rules.",
+      "name": "CISO security rules",
+      "ownerEmail": "admin@example.com",
+      "queries": [
+        {
+          "alias": "",
+          "condition": {
+            "boolean": true,
+            "type": "literal"
+          },
+          "description": "This query tracks users of the sales team that have conflicting roles.",
+          "entityType": "user",
+          "name": "Sales separation of duty"
+        }
+      ],
+      "shared": true
+    }
+  ],
+  "storedQueries": [
+    {
+      "alias": "",
+      "condition": {
+        "exprs": [
+          {
+            "lhs": {
+              "attributeType": "department",
+              "reference": "",
+              "type": "attribute"
+            },
+            "mode": "caseInsensitive",
+            "operator": "contains",
+            "rhs": {
+              "string": "DB RKS",
+              "type": "literal"
+            },
+            "type": "match"
+          },
+          {
+            "attributeType": "department",
+            "reference": "",
+            "type": "assigned"
+          }
+        ],
+        "type": "all"
+      },
+      "description": "",
+      "entityType": "user",
+      "name": "Users in DB RKS department",
+      "ownerEmail": "admin@example.com",
+      "shared": false
+    },
+    {
+      "alias": "",
+      "condition": {
+        "alias": "",
+        "condition": {
+          "exprs": [
+            {
+              "exprs": [
+                {
+                  "lhs": {
+                    "linkAttributeType": "creation_date",
+                    "linkReference": "",
+                    "type": "linkAttribute"
+                  },
+                  "operator": "gte",
+                  "rhs": {
+                    "dateTime": "2012-04-01T00:00:00Z",
+                    "type": "literal"
+                  },
+                  "type": "dateTimeCmp"
+                },
+                {
+                  "linkAttributeType": "creation_date",
+                  "linkReference": "",
+                  "type": "linkAssigned"
+                }
+              ],
+              "type": "all"
+            },
+            {
+              "exprs": [
+                {
+                  "lhs": {
+                    "linkAttributeType": "creation_date",
+                    "linkReference": "",
+                    "type": "linkAttribute"
+                  },
+                  "operator": "lt",
+                  "rhs": {
+                    "dateTime": "2012-05-01T00:00:00Z",
+                    "type": "literal"
+                  },
+                  "type": "dateTimeCmp"
+                },
+                {
+                  "linkAttributeType": "creation_date",
+                  "linkReference": "",
+                  "type": "linkAssigned"
+                }
+              ],
+              "type": "all"
+            }
+          ],
+          "type": "all"
+        },
+        "entityType": "role",
+        "linkAlias": "",
+        "type": "directlyLinkedTo"
+      },
+      "description": "",
+      "entityType": "user",
+      "name": "Users with roles created in april 2012",
+      "ownerEmail": "admin@example.com",
+      "shared": false
+    },
+    {
+      "alias": "",
+      "condition": {
+        "exprs": [
+          {
+            "expr": {
+              "lhs": {
+                "reference": "",
+                "type": "name"
+              },
+              "mode": "caseInsensitive",
+              "operator": "contains",
+              "rhs": {
+                "string": "a",
+                "type": "literal"
+              },
+              "type": "match"
+            },
+            "type": "not"
+          }
+        ],
+        "type": "all"
+      },
+      "description": "",
+      "entityType": "user",
+      "name": "Users for which name does not contain a",
+      "ownerEmail": "admin@example.com",
+      "shared": false
+    },
+    {
+      "alias": "",
+      "condition": {
+        "expr": {
+          "attributeType": "department",
+          "reference": "",
+          "type": "assigned"
+        },
+        "type": "not"
+      },
+      "description": "",
+      "entityType": "user",
+      "name": "Users for which department is not assigned",
+      "ownerEmail": "admin@example.com",
+      "shared": false
+    },
+    {
+      "alias": "",
+      "condition": {
+        "exprs": [
+          {
+            "lhs": {
+              "alias": "a",
+              "condition": {
+                "boolean": true,
+                "type": "literal"
+              },
+              "entityType": "role",
+              "expr": {
+                "number": 0,
+                "type": "literal"
+              },
+              "op": "count",
+              "type": "linkAggregate"
+            },
+            "operator": "lt",
+            "rhs": {
+              "number": 2,
+              "type": "literal"
+            },
+            "type": "numberCmp"
+          }
+        ],
+        "type": "all"
+      },
+      "description": "",
+      "entityType": "user",
+      "name": "Users for which count of linked roles is less than 2",
+      "ownerEmail": "admin@example.com",
+      "shared": false
+    },
+    {
+      "alias": "",
+      "condition": {
+        "attributeType": "department",
+        "reference": "",
+        "type": "assigned"
+      },
+      "description": "",
+      "entityType": "user",
+      "name": "Users for which department is assigned",
+      "ownerEmail": "admin@example.com",
+      "shared": false
+    },
+    {
+      "alias": "",
+      "condition": {
+        "expr": {
+          "alias": "",
+          "condition": {
+            "exprs": [
+              {
+                "lhs": {
+                  "linkAttributeType": "approval_date",
+                  "linkReference": "",
+                  "type": "linkAttribute"
+                },
+                "operator": "lt",
+                "rhs": {
+                  "date": "2012-12-12",
+                  "type": "literal"
+                },
+                "type": "dateCmp"
+              },
+              {
+                "linkAttributeType": "approval_date",
+                "linkReference": "",
+                "type": "linkAssigned"
+              }
+            ],
+            "type": "all"
+          },
+          "entityType": "entitlement",
+          "linkAlias": "",
+          "type": "directlyLinkedTo"
+        },
+        "type": "not"
+      },
+      "description": "",
+      "entityType": "user",
+      "name": "Complex direct link query",
+      "ownerEmail": "admin@example.com",
+      "shared": false
+    }
+  ],
+  "userAccounts": [
+    {
+      "displayName": "M. Demo",
+      "email": "demo@elimity.com",
+      "firstName": "My",
+      "lastName": "Demo",
+      "password": "demo",
+      "role": "member"
+    },
+    {
+      "displayName": "T. Eamleader",
+      "email": "teamleader@example.com",
+      "firstName": "Team",
+      "lastName": "Leader",
+      "password": "teamleader",
+      "role": "connectorAdmin"
+    }
+  ]
+}
