@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/robinspiltijns/Information_visualisation#readme",
   "dependencies": {
-    "@types/d3": "^6.3.0"
+    "@types/d3": "^6.3.0",
+    "d3-scale-chromatic": "^2.0.0"
   }
 }
