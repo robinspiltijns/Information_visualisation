@@ -1,10 +1,10 @@
 export class Entity {
-    constructor(id, name, type, parents, children) {
+    constructor(id, name, type) {
         this.id = id;
         this.name = name;
         this.type = type;
-        this.parents = parents;
-        this.children = children;
+        this.parents = new Set();
+        this.children = new Set();
     }
 
     getId() {
@@ -28,19 +28,19 @@ export class Entity {
     }
 
     getDescendants() {
-        if (this.getChildren().length === 0) {
-            return []
+        if (this.getChildren().size === 0) {
+            return new Set()
         } else {
-            return this.getChildren().concat(this.getChildren().flatMap((child) => child.getDescendants()))
+            return new Set([...this.getChildren(), ...Array.from(this.getChildren()).flatMap((child) => child.getDescendants())])
         }
     }
 
     getAncestors() {
-      if (this.getParents().length === 0) {
-          return []
-      } else {
-          return this.getParents().concat(this.getParents().flatMap((parent) => parent.getAncestors()))
-      }
+        if (this.getParents().size === 0) {
+            return new Set()
+        } else {
+            return new Set([...this.getParents(), ...Array.from(this.getParents()).flatMap((parent) => parent.getAncestors())])
+        }
     }
 
 }

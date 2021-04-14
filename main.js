@@ -13,10 +13,10 @@ export async function getData() {
         });
     let parsedEntities = {};
 
-    rawEntities.forEach((rawEntity) => parsedEntities[rawEntity.id] = new Entity(rawEntity.id, rawEntity.name, rawEntity.type, [],[]));
+    rawEntities.forEach((rawEntity) => parsedEntities[rawEntity.id] = new Entity(rawEntity.id, rawEntity.name, rawEntity.type));
     rawRelations.forEach((rawRelation) => {
-        parsedEntities[rawRelation.fromEntityId].children.push(parsedEntities[rawRelation.toEntityId]);
-        parsedEntities[rawRelation.toEntityId].parents.push(parsedEntities[rawRelation.fromEntityId]);
+        parsedEntities[rawRelation.fromEntityId].children.add(parsedEntities[rawRelation.toEntityId]);
+        parsedEntities[rawRelation.toEntityId].parents.add(parsedEntities[rawRelation.fromEntityId]);
     });
     return parsedEntities
 }
