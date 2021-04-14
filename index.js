@@ -31,7 +31,7 @@ d3.json("data/data.json").then((data) => {
     let matrix = [];
     let nodes = data.entities
         .filter((e) => e.type === "entitlement")
-        .map((e, i) => {return {id: e.id, name: e.name, index: i, count: 0}});
+        .map((e, i) => {return {id: e.id, name: e.name, index: i, count: 0, roles: 0}});
 
     let amountOfNodes = nodes.length;
 
@@ -44,6 +44,13 @@ d3.json("data/data.json").then((data) => {
             };
         });
     });
+
+    // count roles that contain entitlement
+    data.relationships
+        .filter((r) => (r.fromEntityType === "role" && r.toEntityType === "entitlement"))
+        .forEach((r) => {
+            nodes.find(n => n.id === r.toEntityId).roles += 1;
+        })
 
     let links = data.relationships
         .filter((r) => (r.fromEntityType === "user" && r.toEntityType === "entitlement"))
@@ -127,6 +134,9 @@ d3.json("data/data.json").then((data) => {
         }),
         count: d3.range(amountOfNodes).sort((a, b) => {
             return nodes[b].count - nodes[a].count;
+        }),
+        role_count: d3.range(amountOfNodes).sort((a, b) => {
+            return nodes[b].roles - nodes[a].roles;
         }),
     };
 
