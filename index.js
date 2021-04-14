@@ -35,13 +35,13 @@ d3.json("data/data.json").then((data) => {
 
     links.forEach((link) => {
         let userId = link.source;
-        let entitlementId = link.target
-        let node1_index = nodes.filter((node) => node.id === entitlementId)[0].index;
+        let entitlementId = link.target;
+        let node1 = nodes.find((node) => node.id === entitlementId);
         links.filter((link) => link.source === userId)
-             .map((link) => (nodes.filter((node) => node.id === link.target)[0].index))
-             .filter((node2_index) => node2_index !== node1_index)
-             .forEach((node2_index) => {
-                matrix[node1_index][node2_index].z += 1;
+             .map((link) => (nodes.find((node) => node.id === link.target)))
+             .filter((node2) => node2.index !== node1.index)
+             .forEach((node2) => {
+                matrix[node1.index][node2.index].z += 1;
         });
     });
 
