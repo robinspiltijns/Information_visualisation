@@ -135,6 +135,9 @@ d3.json("data/data.json").then((data) => {
         count: d3.range(amountOfNodes).sort((a, b) => {
             return nodes[b].count - nodes[a].count;
         }),
+        role_count: d3.range(amountOfNodes).sort((a, b) => {
+            return nodes[b].roles - nodes[a].roles;
+        }),
     };
 
     d3.select("#order").on("change", function() {
