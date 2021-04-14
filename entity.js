@@ -20,10 +20,18 @@ export class Entity {
     }
 
     getParents() {
-        return this.parents;
+        return Array.from(this.parents);
     }
 
     getChildren() {
+        return Array.from(this.children);
+    }
+
+    getParentsSet() {
+        return this.parents;
+    }
+
+    getChildrenSet() {
         return this.children;
     }
 
@@ -39,7 +47,7 @@ export class Entity {
         if (this.getChildren().size === 0) {
             return new Set()
         } else {
-            return new Set([...this.getChildren(), ...Array.from(this.getChildren()).flatMap((child) => child.getDescendantsSet())])
+            return new Set([...this.getChildren(), ...Array.from(this.getChildren()).flatMap((child) => child.getDescendants())])
         }
     }
 
@@ -47,7 +55,7 @@ export class Entity {
         if (this.getParents().size === 0) {
             return new Set()
         } else {
-            return new Set([...this.getParents(), ...Array.from(this.getParents()).flatMap((parent) => parent.getAncestorsSet())])
+            return new Set([...this.getParents(), ...Array.from(this.getParents()).flatMap((parent) => parent.getAncestors())])
         }
     }
 
