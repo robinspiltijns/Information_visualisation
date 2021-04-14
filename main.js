@@ -18,7 +18,7 @@ export async function getData() {
         parsedEntities[rawRelation.fromEntityId].children.add(parsedEntities[rawRelation.toEntityId]);
         parsedEntities[rawRelation.toEntityId].parents.add(parsedEntities[rawRelation.fromEntityId]);
     });
-    return parsedEntities
+    return Object.values(parsedEntities)
 }
 
 
