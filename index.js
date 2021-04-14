@@ -1,3 +1,8 @@
+import {getData} from "./main.js";
+
+const entities = await getData();
+
+console.log(Object.values(entities)[0].getDescendants());
 let margin = {
         top: 285,
         right: 0,
@@ -69,14 +74,11 @@ d3.json("data/data.json").then((data) => {
         links.filter((link) => link.source === userId)
              .map((link) => (nodes.find((node) => node.id === link.target)))
              .forEach((node2) => {
-                if (node1.id === node2.id) {
-                    node1.count += 1;
-                } else {
-                    matrix[node1.index][node2.index].z += 1;  
-                }
-                             
+                 matrix[node1.index][node2.index].z += 1;
         });
     });
+
+
 
     let matrixScale = d3.scaleBand().range([0, width]).domain(d3.range(amountOfNodes));
     let opacityScale = d3.scaleLinear().domain([0, 5]).range([0.0, 1.0]).clamp(true);
@@ -99,7 +101,9 @@ d3.json("data/data.json").then((data) => {
         .attr("width", matrixScale.bandwidth())
         .attr("height", matrixScale.bandwidth())
         .style("fill", d => d.x == d.y ? "red" : "blue")
-        .style("fill-opacity", d => d.x == d.y ? countOpacityScale(nodes[d.y].count) : opacityScale(d.z));
+        .style("fill-opacity", d => d.x == d.y ? countOpacityScale(nodes[d.y].count) : opacityScale(d.z))
+        .on("mouseover", (event, data) => console.log(data.z));
+    ;
 
     let columns = svg.selectAll(".column")
         .data(matrix)
@@ -161,10 +165,6 @@ d3.json("data/data.json").then((data) => {
             .delay((d, i) => matrixScale(i) * 4)
             .attr("transform", (d, i) => "translate(" + matrixScale(i) + ")rotate(-90)");
     }
-
-    console.log(nodes)
-    console.log(links)
-    console.log(matrix)
 });
 
 
