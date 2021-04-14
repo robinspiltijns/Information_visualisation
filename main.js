@@ -11,7 +11,7 @@ export async function getData() {
             rawEntities = data.entities;
             rawRelations = data.relationships;
         });
-    let parsedEntities = {};
+    let parsedEntities = [];
 
     rawEntities.forEach((rawEntity) => parsedEntities[rawEntity.id] = new Entity(rawEntity.id, rawEntity.name, rawEntity.type));
     rawRelations.forEach((rawRelation) => {

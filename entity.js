@@ -28,18 +28,26 @@ export class Entity {
     }
 
     getDescendants() {
-        if (this.getChildren().size === 0) {
-            return new Set()
-        } else {
-            return new Set([...this.getChildren(), ...Array.from(this.getChildren()).flatMap((child) => child.getDescendants())])
-        }
+        return Array.from(this.getDescendantsSet());
     }
 
     getAncestors() {
+        return Array.from(this.getAncestorsSet());
+    }
+
+    getDescendantsSet() {
+        if (this.getChildren().size === 0) {
+            return new Set()
+        } else {
+            return new Set([...this.getChildren(), ...Array.from(this.getChildren()).flatMap((child) => child.getDescendantsSet())])
+        }
+    }
+
+    getAncestorsSet() {
         if (this.getParents().size === 0) {
             return new Set()
         } else {
-            return new Set([...this.getParents(), ...Array.from(this.getParents()).flatMap((parent) => parent.getAncestors())])
+            return new Set([...this.getParents(), ...Array.from(this.getParents()).flatMap((parent) => parent.getAncestorsSet())])
         }
     }
 
