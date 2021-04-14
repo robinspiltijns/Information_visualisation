@@ -7,8 +7,20 @@
     <script src="https://d3js.org/d3-color.v2.min.js"></script>
     <script src="https://d3js.org/d3-interpolate.v2.min.js"></script>
     <script src="https://d3js.org/d3-scale-chromatic.v2.min.js"></script>
+    <link rel="stylesheet" href="index.css">
     <script src="index.js" defer></script>
 </head>
 <body>
+<div class="container">
+    <graph></graph>
+    <aside >
+        <p>Order: <select id="order">
+            <option value="name_ascending">Alphabetical Ascending</option>
+            <option value="name_descending">Alphabetical Descending</option>
+            <option value="count">Count</option>
+
+        </select>
+    </aside>
+</div>
 </body>
 </html>

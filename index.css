@@ -1,0 +1,24 @@
+.container {
+    display: grid;
+    width: 1000px;
+    grid-template-areas: "head head"
+        												"intro intro"
+        												"graph aside";
+    grid-template-columns: auto auto;
+    justify-items: center;
+    margin: auto;
+}
+
+graph {
+    grid-area: graph;
+}
+
+body {
+    text-align: center;
+}
+
+aside {
+    grid-area: aside;
+    margin: 5px;
+    margin-top: 280px;
+}
