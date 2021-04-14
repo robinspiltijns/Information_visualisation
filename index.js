@@ -15,7 +15,7 @@ d3.json("data/data.json").then((data) => {
     let matrix = [];
     let nodes = data.entities
         .filter((e) => e.type === "entitlement")
-        .map((e, i) => {return {id: e.id, name: e.name, index: i}});
+        .map((e, i) => {return {id: e.id, name: e.name, index: i, count: 0}});
 
     let amountOfNodes = nodes.length;
 
@@ -39,14 +39,19 @@ d3.json("data/data.json").then((data) => {
         let node1 = nodes.find((node) => node.id === entitlementId);
         links.filter((link) => link.source === userId)
              .map((link) => (nodes.find((node) => node.id === link.target)))
-             .filter((node2) => node2.index !== node1.index)
              .forEach((node2) => {
-                matrix[node1.index][node2.index].z += 1;
+                if (node1.id === node2.id) {
+                    node1.count += 1;
+                } else {
+                    matrix[node1.index][node2.index].z += 1;  
+                }
+                             
         });
     });
 
     let matrixScale = d3.scaleBand().range([0, width]).domain(d3.range(amountOfNodes));
     let opacityScale = d3.scaleLinear().domain([0, 5]).range([0.0, 1.0]).clamp(true);
+    let countOpacityScale = d3.scaleLinear().domain([Math.min(...nodes.map(n => n.count))-5, Math.max(...nodes.map(n => n.count))+5]).range([0.0, 1.0]).clamp(true);
 
     let rows = svg.selectAll('.row')
         .data(matrix)
@@ -64,8 +69,8 @@ d3.json("data/data.json").then((data) => {
         .attr("x", d => matrixScale(d.x))
         .attr("width", matrixScale.bandwidth())
         .attr("height", matrixScale.bandwidth())
-        .style("fill", "blue")
-        .style("fill-opacity", d => opacityScale(d.z));
+        .style("fill", d => d.x == d.y ? "red" : "blue")
+        .style("fill-opacity", d => d.x == d.y ? countOpacityScale(nodes[d.y].count) : opacityScale(d.z));
 
     let columns = svg.selectAll(".column")
         .data(matrix)
