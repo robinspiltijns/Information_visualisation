@@ -1,6 +1,7 @@
 import {getData} from "./main.js";
 
 const entities = await getData();
+const entityType = "entitlement"
 
 //console.log(Object.values(entities)[0].getDescendants());
 let margin = {
@@ -34,7 +35,7 @@ svg.append("rect")
 
 let matrix = [];
 let nodes = entities
-    .filter((e) => e.getType() === "entitlement")
+    .filter((e) => e.getType() === entityType)
     .map((e, i) => {return {entity: e, index: i, amountOwningUsers: 0}});
 console.log(nodes);
 
@@ -54,7 +55,7 @@ nodes.forEach((node) => {
 // loop over users to increase the z and the count of each node/matrix point
 let users = entities.filter((e) => e.getType() === "user")
 users.forEach((user) => {
-    let entitlements = user.getDescendants().filter((d) => d.getType() === "entitlement")
+    let entitlements = user.getDescendants().filter((d) => d.getType() === entityType)
     for (let i = 0; i < entitlements.length; i++) {
         let firstEntitlementNode = nodes.find((n) => n.entity === entitlements[i]);
         firstEntitlementNode.amountOwningUsers += 1;
