@@ -5,16 +5,10 @@ export class Entity {
         this.type = type;
         this.parents = new Set();
         this.children = new Set();
-        this.index = -1;
-        this.count = 0;
     }
 
     getId() {
         return this.id;
-    }
-
-    setIndex(i) {
-        this.index = i;
     }
 
     getName() {

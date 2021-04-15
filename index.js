@@ -35,7 +35,9 @@ svg.append("rect")
 let matrix = [];
 let nodes = entities
     .filter((e) => e.getType() === "entitlement")
-nodes.forEach((node, i) => node.setIndex(i))
+    .map((e, i) => {return {entity: e, index: i, amountOwningUsers: 0}});
+console.log(nodes);
+
 
 let amountOfNodes = nodes.length;
 
@@ -53,16 +55,19 @@ nodes.forEach((node) => {
 let users = entities.filter((e) => e.getType() === "user")
 users.forEach((user) => {
     let entitlements = user.getDescendants().filter((d) => d.getType() === "entitlement")
-    for (let i = 0; i < entitlements.length - 1; i++) {
-        entitlements[i].count += 1
-        for (let j = i + 1; j < entitlements.length - 1; j++) {
-            matrix[entitlements[i].index][entitlements[j].index].z += 1;
-            matrix[entitlements[j].index][entitlements[i].index].z += 1;
+    for (let i = 0; i < entitlements.length; i++) {
+        let firstEntitlementNode = nodes.find((n) => n.entity === entitlements[i]);
+        firstEntitlementNode.amountOwningUsers += 1;
+        for (let j = i + 1; j < entitlements.length; j++) {
+            let secondEntitlementNode = nodes.find((n) => n.entity === entitlements[j]);
+            matrix[firstEntitlementNode.index][secondEntitlementNode.index].z += 1;
+            matrix[secondEntitlementNode.index][firstEntitlementNode.index].z += 1;
         }
     }
 })
 // loop over the nodes to detemine the number of roles for each entitlement
-nodes.forEach((n) => n.roles = n.getAncestors().filter((e) => e.getType() === "role").length)
+nodes.forEach((n) => n.roles = n.entity.getParents().filter((e) => e.getType() === "role").length)
+
 
 
 /*
@@ -98,8 +103,8 @@ links.forEach((link) => {
 */
 
 let matrixScale = d3.scaleBand().range([0, width]).domain(d3.range(amountOfNodes));
-let opacityScale = d3.scaleLinear().domain([0, 5]).range([0.0, 1.0]).clamp(true);
-let countOpacityScale = d3.scaleLinear().domain([Math.min(...nodes.map(n => n.count))-5, Math.max(...nodes.map(n => n.count))+5]).range([0.0, 1.0]).clamp(true);
+let opacityScale = d3.scaleLog().domain([0.1, Math.max( ...matrix.flat().map(n => n.z))]).range([0.0, 1.0]).clamp(true);
+let countOpacityScale = d3.scaleLog().domain([0.1, Math.max(...nodes.map(n => n.amountOwningUsers))]).range([0.0, 1.0]).clamp(true);
 
 let rows = svg.selectAll('.row')
     .data(matrix)
@@ -118,7 +123,7 @@ let squares = rows.selectAll(".cell")
     .attr("width", matrixScale.bandwidth())
     .attr("height", matrixScale.bandwidth())
     .style("fill", d => d.x == d.y ? "red" : "blue")
-    .style("fill-opacity", d => d.x == d.y ? countOpacityScale(nodes[d.y].count) : opacityScale(d.z))
+    .style("fill-opacity", d => d.x == d.y ? countOpacityScale(nodes[d.y].amountOwningUsers) : opacityScale(d.z))
     .on("mouseover", (event, data) => console.log(data.z));
 ;
 
@@ -136,7 +141,7 @@ rows.append("text")
     .attr("y", matrixScale.bandwidth() / 2)
     .attr("dy", ".32em")
     .attr("text-anchor", "end")
-    .text((d, i) => nodes[i].name);
+    .text((d, i) => nodes[i].entity.getName());
 
 columns.append("text")
     .attr("class", "label")
@@ -144,17 +149,17 @@ columns.append("text")
     .attr("y", matrixScale.bandwidth() / 2)
     .attr("dx", ".32em")
     .attr("text-anchor", "start")
-    .text((d, i) => nodes[i].name);
+    .text((d, i) => nodes[i].entity.getName());
 
 let orders = {
     name_ascending: d3.range(amountOfNodes).sort((a, b) => {
-        return d3.ascending(nodes[a].name, nodes[b].name);
+        return d3.ascending(nodes[a].entity.getName(), nodes[b].entity.getName());
     }),
     name_descending: d3.range(amountOfNodes).sort((a, b) => {
-        return d3.descending(nodes[a].name, nodes[b].name);
+        return d3.descending(nodes[a].entity.getName(), nodes[b].entity.getName());
     }),
     count: d3.range(amountOfNodes).sort((a, b) => {
-        return nodes[b].count - nodes[a].count;
+        return nodes[b].amountOwningUsers - nodes[a].amountOwningUsers;
     }),
     role_count: d3.range(amountOfNodes).sort((a, b) => {
         return nodes[b].roles - nodes[a].roles;
