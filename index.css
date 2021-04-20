@@ -30,3 +30,8 @@ aside {
 .tooltip {
     position: absolute;
 }
+
+text.active {
+    fill: #5c9bd1ff;
+    font-weight: bold;
+}

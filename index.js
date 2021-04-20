@@ -106,7 +106,8 @@ let tooltip = d3.select("graph")
     .style("border", "solid")
     .style("border-width", "2px")
     .style("border-radius", "5px")
-    .style("padding", "5px")
+    .style("padding", "5px");
+
 
 let columns = svg.selectAll(".column")
     .data(matrix)
@@ -174,6 +175,13 @@ function mouseover(event, data) {
         .style("opacity", 1);
     d3.select(this)
         .style("stroke", "black")
+
+    d3.selectAll(".row text").classed("active", (d, i) => {
+        return i == data.y;
+    });
+    d3.selectAll(".column text").classed("active", (d, i) => {
+        return i == data.x;
+    });
 }
 
 function mousemove(event, data) {
@@ -188,5 +196,7 @@ function mouseleave(event, data) {
         .style("opacity", 0)
     d3.select(this)
         .style("stroke", "none")
+    d3.selectAll("text").classed("active", false);
+    tooltip.transition().duration(500).style("opacity", 0);
 }
 
