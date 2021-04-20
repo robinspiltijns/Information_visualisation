@@ -65,10 +65,11 @@ users.forEach((user) => {
         }
     }
 })
+
 // loop over the nodes to detemine the number of roles for each entitlement
 nodes.forEach((n) => n.roles = n.entity.getParents().filter((e) => e.getType() === "role").length)
 
-let matrixScale = d3.scaleBand().range([0, width]).domain(d3.range(amountOfNodes));
+let matrixScale = d3.scaleBand().range([0, width]).domain(d3.range(amountOfNodes)).padding(0.05);;
 let opacityScale = d3.scaleLog().domain([0.1, Math.max( ...matrix.flat().map(n => n.z))]).range([0.0, 1.0]).clamp(true);
 let countOpacityScale = d3.scaleLog().domain([0.1, Math.max(...nodes.map(n => n.amountOwningUsers))]).range([0.0, 1.0]).clamp(true);
 
@@ -88,8 +89,11 @@ let squares = rows.selectAll(".cell")
     .attr("x", d => matrixScale(d.x))
     .attr("width", matrixScale.bandwidth())
     .attr("height", matrixScale.bandwidth())
-    .style("fill", d => d.x == d.y ? "red" : "blue")
+    .attr("rx", 3)
+    .attr("ry", 3)
+    .style("fill", d => d.x == d.y ? "#F46036" : "#5c9bd1ff")
     .style("fill-opacity", d => d.x == d.y ? countOpacityScale(nodes[d.y].amountOwningUsers) : opacityScale(d.z))
+    .style("stroke-width", 2)
     .on("mouseover", mouseover)
     .on("mousemove", mousemove)
     .on("mouseleave", mouseleave);
