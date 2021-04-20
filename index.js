@@ -1,16 +1,16 @@
-import {getData} from "./main.js";
+import {getData} from "./parser.js";
 
 const entities = await getData();
 const entityType = "entitlement"
 
-let margin = {
+const margin = {
         top: 285,
         right: 0,
         bottom: 10,
         left: 285
-    },
-    width = 700,
-    height = 700;
+    };
+const width = 700;
+const height = 700;
 
 
 let svg = d3.select("graph").append("svg")
