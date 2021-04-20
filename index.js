@@ -175,8 +175,8 @@ function mouseover(event, data) {
 function mousemove(event, data) {
     tooltip
         .html(data.z + " common users.")
-        .style("left", (d3.pointer(event, svg)[0] + 20) + "px")
-        .style("top", (d3.pointer(event, svg)[1]) + "px")
+        .style("left", (event.pageX + 20) + "px")
+        .style("top", (event.pageY) + "px")
 }
 
 function mouseleave(event, data) {
