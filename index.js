@@ -90,8 +90,19 @@ let squares = rows.selectAll(".cell")
     .attr("height", matrixScale.bandwidth())
     .style("fill", d => d.x == d.y ? "red" : "blue")
     .style("fill-opacity", d => d.x == d.y ? countOpacityScale(nodes[d.y].amountOwningUsers) : opacityScale(d.z))
-    .on("mouseover", (event, data) => console.log(data.z));
-;
+    .on("mouseover", mouseover)
+    .on("mousemove", mousemove)
+    .on("mouseleave", mouseleave);
+
+let tooltip = d3.select("graph")
+    .append("div")
+    .style("opacity", 0)
+    .attr("class", "tooltip")
+    .style("background-color", "white")
+    .style("border", "solid")
+    .style("border-width", "2px")
+    .style("border-radius", "5px")
+    .style("padding", "5px")
 
 let columns = svg.selectAll(".column")
     .data(matrix)
@@ -154,5 +165,24 @@ function changeOrder(value) {
         .attr("transform", (d, i) => "translate(" + matrixScale(i) + ")rotate(-90)");
 }
 
+function mouseover(event, data) {
+    tooltip
+        .style("opacity", 1);
+    d3.select(this)
+        .style("stroke", "black")
+}
 
+function mousemove(event, data) {
+    tooltip
+        .html(data.z + " common users.")
+        .style("left", (d3.pointer(event, svg)[0] + 20) + "px")
+        .style("top", (d3.pointer(event, svg)[1]) + "px")
+}
+
+function mouseleave(event, data) {
+    tooltip
+        .style("opacity", 0)
+    d3.select(this)
+        .style("stroke", "none")
+}
 

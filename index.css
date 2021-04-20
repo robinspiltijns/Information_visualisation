@@ -22,3 +22,7 @@ aside {
     margin: 5px;
     margin-top: 280px;
 }
+
+.tooltip {
+    position: absolute;
+}
