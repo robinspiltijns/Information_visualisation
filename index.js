@@ -3,7 +3,6 @@ import {getData} from "./main.js";
 const entities = await getData();
 const entityType = "entitlement"
 
-//console.log(Object.values(entities)[0].getDescendants());
 let margin = {
         top: 285,
         right: 0,
@@ -69,40 +68,6 @@ users.forEach((user) => {
 // loop over the nodes to detemine the number of roles for each entitlement
 nodes.forEach((n) => n.roles = n.entity.getParents().filter((e) => e.getType() === "role").length)
 
-
-
-/*
-// count roles that contain entitlement
-
-data.relationships
-    .filter((r) => (r.fromEntityType === "role" && r.toEntityType === "entitlement"))
-    .forEach((r) => {
-        nodes.find(n => n.id === r.toEntityId).roles += 1;
-    })
-
-let links = data.relationships
-    .filter((r) => (r.fromEntityType === "user" && r.toEntityType === "entitlement"))
-    .map((r) => {return {source: r.fromEntityId, target: r.toEntityId}});
-
-nodes.forEach((node) => {
-    let entitlementId = node.id;
-    node.count = links.filter((link) => link.target === entitlementId).length;
-    }
-);
-
-links.forEach((link) => {
-    let userId = link.source;
-    let entitlementId = link.target;
-    let node1 = nodes.find((node) => node.id === entitlementId);
-    links.filter((link) => link.source === userId)
-         .map((link) => (nodes.find((node) => node.id === link.target)))
-         .forEach((node2) => {
-             matrix[node1.index][node2.index].z += 1;
-    });
-});
-
-*/
-
 let matrixScale = d3.scaleBand().range([0, width]).domain(d3.range(amountOfNodes));
 let opacityScale = d3.scaleLog().domain([0.1, Math.max( ...matrix.flat().map(n => n.z))]).range([0.0, 1.0]).clamp(true);
 let countOpacityScale = d3.scaleLog().domain([0.1, Math.max(...nodes.map(n => n.amountOwningUsers))]).range([0.0, 1.0]).clamp(true);
@@ -125,8 +90,19 @@ let squares = rows.selectAll(".cell")
     .attr("height", matrixScale.bandwidth())
     .style("fill", d => d.x == d.y ? "red" : "blue")
     .style("fill-opacity", d => d.x == d.y ? countOpacityScale(nodes[d.y].amountOwningUsers) : opacityScale(d.z))
-    .on("mouseover", (event, data) => console.log(data.z));
-;
+    .on("mouseover", mouseover)
+    .on("mousemove", mousemove)
+    .on("mouseleave", mouseleave);
+
+let tooltip = d3.select("graph")
+    .append("div")
+    .style("opacity", 0)
+    .attr("class", "tooltip")
+    .style("background-color", "white")
+    .style("border", "solid")
+    .style("border-width", "2px")
+    .style("border-radius", "5px")
+    .style("padding", "5px")
 
 let columns = svg.selectAll(".column")
     .data(matrix)
@@ -189,5 +165,24 @@ function changeOrder(value) {
         .attr("transform", (d, i) => "translate(" + matrixScale(i) + ")rotate(-90)");
 }
 
+function mouseover(event, data) {
+    tooltip
+        .style("opacity", 1);
+    d3.select(this)
+        .style("stroke", "black")
+}
 
+function mousemove(event, data) {
+    tooltip
+        .html(data.z + " common users.")
+        .style("left", (event.pageX + 20) + "px")
+        .style("top", (event.pageY) + "px")
+}
+
+function mouseleave(event, data) {
+    tooltip
+        .style("opacity", 0)
+    d3.select(this)
+        .style("stroke", "none")
+}
 
