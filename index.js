@@ -91,8 +91,8 @@ let squares = rows.selectAll(".cell")
     .attr("height", matrixScale.bandwidth())
     .attr("rx", 3)
     .attr("ry", 3)
-    .style("fill", d => d.x == d.y ? "#F46036" : "#5c9bd1ff")
-    .style("fill-opacity", d => d.x == d.y ? countOpacityScale(nodes[d.y].amountOwningUsers) : opacityScale(d.z))
+    .style("fill", d => d.x == d.y ? "#F46036" : (d.z == 0 ? "grey" : "#5c9bd1ff"))
+    .style("fill-opacity", d => d.x == d.y ? countOpacityScale(nodes[d.y].amountOwningUsers) : (d.z == 0 ? 0.2 : opacityScale(d.z)))
     .style("stroke-width", 2)
     .on("mouseover", mouseover)
     .on("mousemove", mousemove)
@@ -148,8 +148,17 @@ let orders = {
     }),
 };
 
+let opacityRanges = {
+    normal: [0.0, 1.0],
+    inverse: [1.0, 0.0]
+}
+
 d3.select("#order").on("change", function() {
     changeOrder(this.value);
+});
+
+d3.select("#scale").on("change", function() {
+    changeColorScale(this.value)
 });
 
 function changeOrder(value) {
@@ -168,6 +177,14 @@ function changeOrder(value) {
     t.selectAll(".column")
         .delay((d, i) => matrixScale(i) * 4)
         .attr("transform", (d, i) => "translate(" + matrixScale(i) + ")rotate(-90)");
+}
+
+function changeColorScale(value) {
+    opacityScale.range(opacityRanges[value]);
+    d3.selectAll(".cell")
+        .transition()
+        .duration(1000)
+        .style("fill-opacity", d => d.x == d.y ? countOpacityScale(nodes[d.y].amountOwningUsers) : (d.z == 0 ? 0.2 : opacityScale(d.z)))
 }
 
 function mouseover(event, data) {
@@ -199,4 +216,3 @@ function mouseleave(event, data) {
     d3.selectAll("text").classed("active", false);
     tooltip.transition().duration(500).style("opacity", 0);
 }
-
